@@ -7,11 +7,8 @@ summary(Call_chicken_01)
 library(dplyr)
 str(Call_chicken_01)
 
+years3040<-Call_chicken_01 %>% filter(연령대=="30대"|연령대=="40대")
 
-years30<-Call_chicken_01 %>% filter(class=="30대")
-years40<-Call_chicken_01 %>% filter(class=="40대")
-
-years3040<-(years30&years40)
 
 head(years3040)
 
