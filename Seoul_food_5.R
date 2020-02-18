@@ -37,6 +37,55 @@ levels(Call_food_01$type) <- food_list
 # Na값 확인
 sum(is.na(Call_food_01))
 
-group_by_data<-Call_food_01 %>% group_by(data.wday.type) %>% summarize(call = sum(call)) %>% as.data.frame()
+group_by_data<-Call_food_01 %>% group_by(date,wday,type) %>% summarize(call = sum(call)) %>% as.data.frame()
 
 head(group_by_data)
+
+for(i in 1:3){
+  group_by_data_food <- group_by_data %>% filter(type==food_list[i])
+}
+
+
+ggplot(group_by_data, aes(x=date, y=call, group = type, colour=type)) + 
+  geom_line(size=1) + 
+  geom_point(size=2)
+
+# 구, 별 data 그룹화
+data_by_county <- Call_food_01 %>%
+  group_by(county,type) %>%
+  summarize(call = sum(call)) %>%
+  arrange(call) %>%
+  as.data.frame()
+
+ggplot(data_by_county, 
+       aes(x=county, y=call, group = type, colour=type)) +  
+  geom_line(size=1.3) +
+  theme(axis.text.x = element_text(angle = 30, size=14)) + 
+  theme(legend.text = element_text(size = 13, face = "italic")) +
+  geom_point(size=2)
+
+ggplot(data_by_county, 
+       aes(x=county, y=call, group = type, colour=type)) + 
+  geom_line(size=1.3) +
+  theme(axis.text.x = element_text(angle = 30, size=14)) + 
+  theme(legend.text = element_text(size = 13, face = "italic")) +
+  geom_point(size=2) + 
+  scale_x_discrete(limits = data_by_county %>% 
+                     filter(type == "chicken") %>%
+                     arrange(call) %>%
+                     select(county) %>% 
+                     t %>% 
+                     as.factor)
+
+ggplot(data_by_county, 
+       aes(x=county, y=call, group = type, colour=type)) + 
+  geom_line(size=1.3) +
+  theme(axis.text.x = element_text(angle = 30, size=14)) + 
+  theme(legend.text = element_text(size = 13, face = "italic")) +
+  geom_point(size=2) + 
+  scale_x_discrete(limits = data_by_county %>% 
+                     filter(type == "cfood") %>%
+                     arrange(call) %>%
+                     select(county) %>% 
+                     t %>% 
+                     as.factor)
