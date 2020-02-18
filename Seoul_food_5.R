@@ -36,3 +36,7 @@ levels(Call_food_01$type) <- food_list
 
 # Na값 확인
 sum(is.na(Call_food_01))
+
+group_by_data<-Call_food_01 %>% group_by(data.wday.type) %>% summarize(call = sum(call)) %>% as.data.frame()
+
+head(group_by_data)
