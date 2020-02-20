@@ -2,39 +2,38 @@ library(dplyr)
 
 library(ggplot2)
 
-Call_chicken_01<-read.csv("CALL_CHICKEN_01MONTH.csv")
-Call_cfood_01<-read.csv("CALL_CFOOD_01MONTH.csv")
-Call_pizza_01<-read.csv("CALL_PIZZA_01MONTH.csv")
+Call_chicken_01<-read.csv("CALL_CHICKEN_01MONTH.csv" ,fileEncoding = "UCS-2LE")
+Call_cfood_01<-read.csv("CALL_CFOOD_01MONTH.csv" ,fileEncoding = "UCS-2LE")
+Call_pizza_01<-read.csv("CALL_PIZZA_01MONTH.csv" ,fileEncoding = "UCS-2LE")
 
-# type í”¼ìžê°€ ì—†ì–´ ìƒˆë¡œ ì¶”ê°€ 
-type <- rep("í”¼ìž" , nrow(Call_pizza_01))
+# type ÇÇÀÚ°¡ ¾ø¾î »õ·Î Ãß°¡ 
+type <- rep("ÇÇÀÚ" , nrow(Call_pizza_01))
 
 Call_pizza_01 <- cbind(Call_pizza_01[,1:7],type,Call_pizza_01[,8])
 
-# ì»¬ëŸ¼ ëª… ì˜ì–´ë¡œ ë³€ê²½ 
+# ÄÃ·³¸íÀ» ¿µ¾î·Î º¯°æ
 colnames(Call_chicken_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "type", "call")
 colnames(Call_cfood_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "type", "call")
 colnames(Call_pizza_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "type", "call")
 
-#Call_food_01ë¡œ ëª¨ë‘ í•©ì¹¨
+#Call_food_01·Î ¸ðµÎ ÇÕÄ§
 Call_food_01 <- c()
 Call_food_01 <- rbind(Call_food_01,Call_chicken_01)
 Call_food_01 <- rbind(Call_food_01,Call_cfood_01)
 Call_food_01 <- rbind(Call_food_01,Call_pizza_01)
 
-# ë‚ ì§œ ë°ì´í„° í˜• ë³€í™˜
+#³¯Â¥ µ¥ÀÌÅÍ Çü º¯È¯
 Call_food_01$date <- as.character(Call_food_01$date)
 Call_food_01$date <- as.Date(Call_food_01$date, format = "%Y%m%d")
 
-# ìš”ì¼ ë°ì´í„° ìˆœì„œ ì¡°ì •
-Call_food_01$wday <- factor(Call_food_01$wday,
-                            levels = c("ì›”","í™”","ìˆ˜","ëª©","ê¸ˆ","í† ","ì¼"))
+#¿äÀÏ µ¥ÀÌÅÍ ¼ø¼­ Á¶Á¤
+Call_food_01$wday <- factor(Call_food_01$wday, levels = c("¿ù","È­","¼ö","¸ñ","±Ý","Åä","ÀÏ"))
 
-# food_listë¥¼ ì‚¬ìš©í•˜ì—¬ typeë¥¼ ì˜ì–´ë¡œ ë³€ê²½
+# food_list¸¦ »ç¿ëÇÏ¿© type¸¦ ¿µ¾î·Î º¯°æ
 food_list <- c("chicken", "cfood","pizza")
 levels(Call_food_01$type) <- food_list
 
-# Naê°’ í™•ì¸
+# Na°ª È®ÀÎ
 sum(is.na(Call_food_01))
 
 group_by_data<-Call_food_01 %>% group_by(date,wday,type) %>% summarize(call = sum(call)) %>% as.data.frame()
@@ -50,9 +49,8 @@ ggplot(group_by_data, aes(x=date, y=call, group = type, colour=type)) +
   geom_line(size=1) + 
   geom_point(size=2)
 
-# êµ¬, ë³„ data ê·¸ë£¹í™”
-data_by_county <- Call_food_01 %>%
-  group_by(county,type) %>%
+# ±¸, º° data ±×·ìÈ­
+data_by_county <- Call_food_01 %>% group_by(county,type) %>% 
   summarize(call = sum(call)) %>%
   arrange(call) %>%
   as.data.frame()

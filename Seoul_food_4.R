@@ -1,36 +1,35 @@
-Call_pizza_01 <- read.csv("CALL_PIZZA_01MONTH.csv")
+Call_pizza_01 <- read.csv("CALL_PIZZA_01MONTH.csv",fileEncoding = "UCS-2LE")
 
 str(Call_pizza_01)
 
-# ì»¬ëŸ¼ ëª… ì˜ì–´ë¡œ ë³€ê²½
 colnames(Call_pizza_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "call")
 
-# type í”¼ìžê°€ ì—†ì–´ ìƒˆë¡œ ì¶”ê°€
-type <- rep("í”¼ìž",nrow(Call_pizza_01))
+# type ÇÇÀÚ°¡ ¾ø¾î »õ·Î Ãß°¡
+type <- rep("ÇÇÀÚ",nrow(Call_pizza_01))
 
-# typeë¥¼ ê·¸ëŒ€ë¡œ ìž¬ì¡°í•© í•´ì„œ ì»¬ëŸ¼ì— ì¶”ê°€
+# type¸¦ ±×´ë·Î ÀçÁ¶ÇÕ ÇØ¼­ ÄÃ·³¿¡ Ãß°¡
 Call_pizza_01 <- cbind(Call_pizza_01[,1:7],type, call = Call_pizza_01[,8])
 
-# ë‚ ì§œ ë°ì´í„° í˜• ë³€í™˜
+# ³¯Â¥ µ¥ÀÌÅÍ Çü º¯È¯
 Call_pizza_01$date <- as.character(Call_pizza_01$date)
 Call_pizza_01$date <- as.POSIXct(Call_pizza_01$date, format = "%Y%m%d")
 
-# ìš”ì¼ ë°ì´í„° ìˆœì„œ ì¡°ì •
+# ¿äÀÏ µ¥ÀÌÅÍ ¼ø¼­ Á¶Á¤
 Call_pizza_01$wday <- factor(Call_pizza_01$wday,
-                             levels = c("ì›”", "í™”", "ìˆ˜","ëª©","ê¸ˆ","í† ","ì¼"))
+                             levels = c("¿ù", "È­", "¼ö","¸ñ","±Ý","Åä","ÀÏ"))
 
-# Naê°’ í™•ì¸
+# Na°ª È®ÀÎ
 sum(is.na(Call_pizza_01))
 
-# ì—°ë ¹, ìš”ì¼ ë³„ Data ê·¸ë£¹í™”
+# ¿¬·É, ¿äÀÏ º° Data ±×·ìÈ­
 data_by_years_days <- Call_pizza_01 %>%
-  group_by(age,wday) %>%
-  summarize(call = sum(call)) %>% as.data.frame()
+    group_by(age,wday) %>%
+    summarize(call = sum(call)) %>% as.data.frame()
 
-# êµ¬, ë³„ data ê·¸ë£¹í™”
+# ±¸, º° data ±×·ìÈ­
 data_by_county <- Call_pizza_01 %>%
-  group_by(county) %>%
-  summarize(call = sum(call)) %>% as.data.frame()
+    group_by(county) %>%
+    summarize(call = sum(call)) %>% as.data.frame()
 data_by_years_days %>% arrange(call)
 data_by_county %>% arrange(call)
 

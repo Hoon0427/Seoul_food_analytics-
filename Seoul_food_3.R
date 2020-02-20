@@ -1,6 +1,6 @@
 library(dplyr)
 
-Call_cfood_01 <- read.csv("CALL_CFOOD_01MONTH.csv")
+Call_cfood_01 <- read.csv("CALL_CFOOD_01MONTH.csv",fileEncoding = "UCS-2LE")
 
 colnames(Call_cfood_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "type", "call")
 Call_cfood_01$date <- as.character(Call_cfood_01$date)
