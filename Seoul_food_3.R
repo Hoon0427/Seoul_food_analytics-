@@ -5,8 +5,7 @@ Call_cfood_01 <- read.csv("CALL_CFOOD_01MONTH.csv")
 colnames(Call_cfood_01) <- c("date", "wday", "gender", "age", "city", "county", "town", "type", "call")
 Call_cfood_01$date <- as.character(Call_cfood_01$date)
 Call_cfood_01$date <- as.POSIXct(Call_cfood_01$date, format = "%Y%m%d")
-Call_cfood_01$wday <- factor(Call_cfood_01$wday,
-                             levels = c("ì›”", "í™”", "ìˆ˜","ëª©","ê¸ˆ","í† ","ì¼"))
+Call_cfood_01$wday <- factor(Call_cfood_01$wday, levels = c("¿ù", "È­", "¼ö","¸ñ","±Ý","Åä","ÀÏ"))
 
 sum(is.na(Call_cfood_01))
 

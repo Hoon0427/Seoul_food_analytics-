@@ -1,4 +1,7 @@
-Call_chicken_01 <- read.csv("CALL_CHICKEN_01MONTH.csv")
+
+library(readr)
+
+Call_chicken_01 <- read.csv("CALL_CHICKEN_01MONTH.csv",fileEncoding = "UCS-2LE")
 
 dim(Call_chicken_01)
 
@@ -7,13 +10,16 @@ summary(Call_chicken_01)
 library(dplyr)
 str(Call_chicken_01)
 
-years3040<-Call_chicken_01 %>% filter(ì—°ë ¹ëŒ€=="30ëŒ€"|ì—°ë ¹ëŒ€=="40ëŒ€")
+years3040<-Call_chicken_01 %>% filter(¿¬·É´ë=="30´ë"|¿¬·É´ë=="40´ë")
 
 
 head(years3040)
 
-sum(fri30$í†µí™”ê±´ìˆ˜)
+fri30<- Call_chicken_01 %>% filter(¿¬·É´ë=="30´ë"&¿äÀÏ=="±İ")
+fri40<- Call_chicken_01 %>% filter(¿¬·É´ë=="40´ë"&¿äÀÏ=="±İ")
 
-sum(fri40$í†µí™”ê±´ìˆ˜)
+sum(fri30$ÅëÈ­°Ç¼ö)
 
-head(years3040[years3040$ì—°ë ¹ëŒ€ == "30ëŒ€",])
+sum(fri40$ÅëÈ­°Ç¼ö)
+
+head(years3040[years3040$¿¬·É´ë == "30´ë",])

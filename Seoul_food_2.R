@@ -2,50 +2,52 @@ summary(Call_chicken_01)
 
 str(Call_chicken_01)
 
-Call_chicken_01$ê¸°ì¤€ì¼ <- as.character(Call_chicken_01$ê¸°ì¤€ì¼)
-Call_chicken_01$ê¸°ì¤€ì¼ <- as.POSIXct(Call_chicken_01$ê¸°ì¤€ì¼, format = "%Y%m%d")
-Call_chicken_01$ìš”ì¼ <- factor(Call_chicken_01$ìš”ì¼,
-                             levels = c("ì›”", "í™”", "ìˆ˜","ëª©","ê¸ˆ","í† ","ì¼"))
+Call_chicken_01$±âÁØÀÏ <- as.character(Call_chicken_01$±âÁØÀÏ)
+Call_chicken_01$±âÁØÀÏ <- as.POSIXct(Call_chicken_01$±âÁØÀÏ, format = "%Y%m%d")
+Call_chicken_01$¿äÀÏ <- factor(Call_chicken_01$¿äÀÏ,
+                             levels = c("¿ù", "È­", "¼ö","¸ñ","±İ","Åä","ÀÏ"))
 
 str(Call_chicken_01)
 
-Call_chicken_01_10years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "10ëŒ€",]
-Call_chicken_01_20years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "20ëŒ€",]
-Call_chicken_01_30years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "30ëŒ€",]
-Call_chicken_01_40years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "40ëŒ€",]
-Call_chicken_01_50years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "50ëŒ€",]
-Call_chicken_01_60years <- Call_chicken_01[Call_chicken_01$ì—°ë ¹ëŒ€ == "60ëŒ€ì´ìƒ",]
-Call_chicken_01_Mon <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "ì›”",]
-Call_chicken_01_Tue <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "í™”",]
-Call_chicken_01_Wed <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "ìˆ˜",]
-Call_chicken_01_Thu <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "ëª©",]
-Call_chicken_01_Fri <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "ê¸ˆ",]
-Call_chicken_01_Sat <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "í† ",]
-Call_chicken_01_Sun <- Call_chicken_01[Call_chicken_01$ìš”ì¼ == "ì¼",]
+Call_chicken_01_10years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë == "10´ë",]
+Call_chicken_01_20years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë == "20´ë",]
+Call_chicken_01_30years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë == "30´ë",]
+Call_chicken_01_40years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë== "40´ë",]
+Call_chicken_01_50years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë == "50´ë",]
+Call_chicken_01_60years <- Call_chicken_01[Call_chicken_01$¿¬·É´ë == "60´ëÀÌ»ó",]
+Call_chicken_01_Mon <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "¿ù",]
+Call_chicken_01_Tue <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "È­",]
+Call_chicken_01_Wed <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "¼ö",]
+Call_chicken_01_Thu <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "¸ñ",]
+Call_chicken_01_Fri <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "±İ",]
+Call_chicken_01_Sat <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "Åä",]
+Call_chicken_01_Sun <- Call_chicken_01[Call_chicken_01$¿äÀÏ == "ÀÏ",]
 
-aggregate(Call_chicken_01$í†µí™”ê±´ìˆ˜, 
-          by=list(Call_chicken_01$ì—°ë ¹ëŒ€), FUN=sum)
-aggregate(Call_chicken_01$í†µí™”ê±´ìˆ˜, 
-          by=list(Call_chicken_01$ìš”ì¼), FUN=sum)
+aggregate(Call_chicken_01$ÅëÈ­°Ç¼ö, 
+          by=list(Call_chicken_01$¿¬·É´ë), FUN=sum)
+aggregate(Call_chicken_01$ÅëÈ­°Ç¼ö, 
+          by=list(Call_chicken_01$¿äÀÏ), FUN=sum)
 
-install.packages("dplyr")
+
 library(dplyr)
 
 data_by_days <- Call_chicken_01 %>%
-  group_by(ìš”ì¼) %>%
-  summarize(í†µí™”ê±´ìˆ˜ = sum(í†µí™”ê±´ìˆ˜)) %>% as.data.frame()
+  group_by(¿äÀÏ) %>%
+  summarize(ÅëÈ­°Ç¼ö = sum(ÅëÈ­°Ç¼ö)) %>% as.data.frame()
 
 data_by_days
 
 data_by_day_years <- Call_chicken_01 %>%
-  group_by(ìš”ì¼,ì—°ë ¹ëŒ€) %>%
-  summarize(í†µí™”ê±´ìˆ˜ = sum(í†µí™”ê±´ìˆ˜)) %>% as.data.frame()
+  group_by(¿äÀÏ,¿¬·É´ë) %>%
+  summarize(ÅëÈ­°Ç¼ö = sum(ÅëÈ­°Ç¼ö)) %>% as.data.frame()
+
 data_by_day_years
 
 
 data_by_years_days <- Call_chicken_01 %>%
-  group_by(ì—°ë ¹ëŒ€,ìš”ì¼) %>%
-  summarize(í†µí™”ê±´ìˆ˜ = sum(í†µí™”ê±´ìˆ˜)) %>% as.data.frame()
+  group_by(¿¬·É´ë,¿äÀÏ) %>%
+  summarize(ÅëÈ­°Ç¼ö = sum(ÅëÈ­°Ç¼ö)) %>% as.data.frame()
+
 data_by_day_years
 
-data_by_years_days %>% arrange(í†µí™”ê±´ìˆ˜)
+data_by_years_days %>% arrange(ÅëÈ­°Ç¼ö)
