@@ -28,3 +28,17 @@ data_by_month_county <- year_18_food_data_frame %>%
     as.data.frame()
 
 head(data_by_month_county)
+
+library(ggplot2)
+ggplot(data_by_month_county, 
+       aes(x=시군구, y=call, group = 업종, colour=업종)) + 
+    geom_line(size=1.3) +
+    theme(axis.text.x = element_text(angle = 30, size=14)) + 
+    theme(legend.text = element_text(size = 13, face = "italic")) +
+    geom_point(size=2) + 
+    scale_x_discrete(limits = data_by_month_county %>% 
+                         filter(업종 == "치킨집") %>%
+                         arrange(call) %>%
+                         select(시군구) %>% 
+                         t %>% 
+                         as.factor)
