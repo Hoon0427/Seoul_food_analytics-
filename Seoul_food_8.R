@@ -42,3 +42,25 @@ ggplot(data_by_month_county,
                          select(시군구) %>% 
                          t %>% 
                          as.factor)
+
+normalize <-function(x){
+    ((x - min(x))*100/(max(x)-min(x)))
+}
+
+str(data_by_month_county)
+
+data_by_month_county<-data_by_month_county %>%
+    group_by(시군구, 업종) %>%
+    mutate(normalized=normalize(call)) %>%
+    arrange(month)%>%
+    arrange(시군구) %>%
+    arrange(업종) %>%
+    as.data.frame()
+
+data_by_month_county
+
+sd_by_county <- aggregate(normalized ~ 시군구 + 업종, data_by_month_county, sd) %>%
+    arrange(desc(normalized)) %>%
+    arrange(업종)
+
+sd_by_county
