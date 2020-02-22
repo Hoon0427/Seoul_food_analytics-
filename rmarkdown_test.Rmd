@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# 제복
+## 제목2
+### 제복3 
+
+
+```{r}
+# 단축키: 컨트롤 알트 i 
+
+iris
+```
+
+
+
+```{r}
+plot(iris$Sepal.Length)
+
+head(iris)
+```
+
